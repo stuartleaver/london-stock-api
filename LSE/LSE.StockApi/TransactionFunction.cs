@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using LSE.StockApi.Models;
 using FluentValidation;
 using System.Linq;
+using LSE.StockApi.Services;
 
 namespace LSE.StockApi
 {
@@ -17,9 +18,13 @@ namespace LSE.StockApi
     {
         private readonly IValidator<Transaction> _validator;
 
-        public TransactionFunction(IValidator<Transaction> validator)
+        private readonly ITransactionService _transactionService;
+
+        public TransactionFunction(IValidator<Transaction> validator, ITransactionService transactionService)
         {
             _validator = validator;
+
+            _transactionService = transactionService;
         }
 
         [FunctionName("TransactionFunction")]
@@ -31,11 +36,11 @@ namespace LSE.StockApi
 
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
 
-            Transaction data;
+            Transaction transaction;
 
             try
             {
-                data = JsonConvert.DeserializeObject<Transaction>(requestBody);
+                transaction = JsonConvert.DeserializeObject<Transaction>(requestBody);
             }
             catch (Exception ex)
             {
@@ -44,7 +49,7 @@ namespace LSE.StockApi
                 return new BadRequestObjectResult(ex.Message);
             }
 
-            var validationResult = await _validator.ValidateAsync(data);
+            var validationResult = await _validator.ValidateAsync(transaction);
 
             if (!validationResult.IsValid)
             {
@@ -54,6 +59,8 @@ namespace LSE.StockApi
                     e.ErrorMessage
                 }));
             }
+
+            _transactionService.ProcessTransaction(transaction);
 
             return new OkObjectResult("Transaction received");
         }
