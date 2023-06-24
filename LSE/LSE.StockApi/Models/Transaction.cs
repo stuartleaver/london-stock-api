@@ -4,8 +4,8 @@ namespace LSE.StockApi.Models
 {
     public class Transaction
     {
-        [JsonProperty("name")]
-        public string Name { get; set; }
+        [JsonProperty("stockSymbol")]
+        public string StockSymbol { get; set; }
 
         [JsonProperty("stockPrice")]
         public decimal StockPrice { get; set; }
