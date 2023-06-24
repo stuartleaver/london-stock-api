@@ -2,6 +2,7 @@
 using LSE.StockApi.Repositories;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 
 namespace LSE.StockApi.Services
 {
@@ -18,13 +19,41 @@ namespace LSE.StockApi.Services
             _logger = logger;
         }
 
+        public List<Stock> GetAllStockPrices()
+        {
+            List<string> stockSymbols;
+
+            try
+            {
+                stockSymbols = _stockRepository.GetAllStockSymbols();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occured retrieving all stock symbols");
+
+                throw;
+            }
+
+            List<Stock> stocks = new();
+
+            foreach (var stockSymbol in stockSymbols)
+            {
+
+                var stock = GetAverageStockPriceByStockSymbol(stockSymbol);
+
+                stocks.Add(stock);
+            }
+
+            return stocks;
+        }
+
         public Stock GetAverageStockPriceByStockSymbol(string stockSymbol)
         {
             decimal averageStockPrice;
 
             try
             {
-                averageStockPrice = _stockRepository.GetAverageStockPriceByStockSymbol(stockSymbol);
+                averageStockPrice = _stockRepository.GetStockPriceByStockSymbol(stockSymbol);
             }
             catch (Exception ex)
             {

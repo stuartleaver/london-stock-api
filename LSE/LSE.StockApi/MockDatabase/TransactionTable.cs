@@ -13,9 +13,14 @@ namespace LSE.StockApi.MockDatabase
             _transactions.Add(transaction);
         }
 
-        public static decimal GetAverageStockPriceByStockSymbol(string stockSymbol)
+        public static decimal GetStockPriceByStockSymbol(string stockSymbol)
         {
             return _transactions.Where(x => x.StockSymbol == stockSymbol).Average(x => x.StockPrice);
+        }
+
+        public static List<string> GetAllStockSymbols()
+        {
+            return _transactions.Select(x => x.StockSymbol).Distinct().ToList();
         }
     }
 }

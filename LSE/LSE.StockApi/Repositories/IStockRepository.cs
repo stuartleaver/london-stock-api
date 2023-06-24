@@ -1,7 +1,11 @@
-﻿namespace LSE.StockApi.Repositories
+﻿using System.Collections.Generic;
+
+namespace LSE.StockApi.Repositories
 {
     public interface IStockRepository
     {
-        decimal GetAverageStockPriceByStockSymbol(string stockSymbol);
+        decimal GetStockPriceByStockSymbol(string stockSymbol);
+
+        List<string> GetAllStockSymbols();
     }
 }
