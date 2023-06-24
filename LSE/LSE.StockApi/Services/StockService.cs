@@ -39,7 +39,7 @@ namespace LSE.StockApi.Services
             foreach (var stockSymbol in stockSymbols)
             {
 
-                var stock = GetAverageStockPriceByStockSymbol(stockSymbol);
+                var stock = GetStockPriceByStockSymbol(stockSymbol);
 
                 stocks.Add(stock);
             }
@@ -47,7 +47,7 @@ namespace LSE.StockApi.Services
             return stocks;
         }
 
-        public Stock GetAverageStockPriceByStockSymbol(string stockSymbol)
+        public Stock GetStockPriceByStockSymbol(string stockSymbol)
         {
             decimal averageStockPrice;
 
@@ -63,6 +63,18 @@ namespace LSE.StockApi.Services
             }
 
             return new Stock { StockSymbol = stockSymbol, StockPrice = averageStockPrice };
+        }
+
+        public List<Stock> GetStockPricesByList(List<string> stockSymbols)
+        {
+            List<Stock> stocks = new();
+
+            foreach (var stockSymbol in stockSymbols)
+            {
+                stocks.Add(GetStockPriceByStockSymbol(stockSymbol));
+            }
+
+            return stocks;
         }
     }
 }

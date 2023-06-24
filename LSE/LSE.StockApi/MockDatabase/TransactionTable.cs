@@ -1,9 +1,11 @@
 ﻿using LSE.StockApi.Models;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace LSE.StockApi.MockDatabase
 {
+    [ExcludeFromCodeCoverage]
     public static class TransactionTable
     {
         private static List<Transaction> _transactions = new();

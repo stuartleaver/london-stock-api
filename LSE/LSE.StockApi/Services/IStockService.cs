@@ -5,8 +5,10 @@ namespace LSE.StockApi.Services
 {
     public interface IStockService
     {
-        Stock GetAverageStockPriceByStockSymbol(string stockSymbol);
+        Stock GetStockPriceByStockSymbol(string stockSymbol);
 
         List<Stock> GetAllStockPrices();
+
+        List<Stock> GetStockPricesByList(List<string> stockSymbols);
     }
 }

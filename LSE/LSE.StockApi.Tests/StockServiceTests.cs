@@ -18,7 +18,7 @@
         }
 
         [Fact]
-        public void GetAverageStockPriceByStockSymbol_ShouldReturnAnAveragePrice_WhenPassedAValidStockSymbol()
+        public void GetStockPriceByStockSymbol_ShouldReturnAPrice_WhenPassedAValidStockSymbol()
         {
             // Arrange
             var stockSymbol = "VOD";
@@ -28,7 +28,7 @@
             var expected = new Stock { StockSymbol = stockSymbol, StockPrice = 1.75m };
 
             // Act
-            var actual = _stockService.GetAverageStockPriceByStockSymbol(stockSymbol);
+            var actual = _stockService.GetStockPriceByStockSymbol(stockSymbol);
 
             // Assert
             Assert.Equivalent(expected, actual);
@@ -43,11 +43,11 @@
             _stockRepository.Setup(x => x.GetStockPriceByStockSymbol(stockSymbol)).Throws(new InvalidOperationException());
 
             // Act & Assert
-            Assert.Throws<InvalidOperationException>(() => _stockService.GetAverageStockPriceByStockSymbol(stockSymbol));
+            Assert.Throws<InvalidOperationException>(() => _stockService.GetStockPriceByStockSymbol(stockSymbol));
         }
 
         [Fact]
-        public void GetAverageStockPriceByStockSymbol_ShouldReturnAnAveragePriceForAllStockSymbols_WhenCalled()
+        public void GetAllStockPrices_ShouldReturnAPriceForAllStockSymbols_WhenCalled()
         {
             // Arrange
             var stockSymbols = new List<string> { "VOD", "RMV", "EXPN" };
@@ -65,6 +65,27 @@
 
             // Act
             var actual = _stockService.GetAllStockPrices();
+
+            // Assert
+            Assert.Equivalent(expected, actual);
+        }
+
+        [Fact]
+        public void GetStockPricesByList_ShouldReturnAPriceForGivenStockSymbols_WhenPassedAListOfStockSymbols()
+        {
+            // Arrange
+            var stockSymbols = new List<string> { "ULVR", "AUTO" };
+
+            _stockRepository.Setup(x => x.GetStockPriceByStockSymbol(It.IsAny<string>())).Returns(44.23m);
+
+            var expected = new List<Stock>
+            {
+                new Stock { StockSymbol = "ULVR", StockPrice = 44.23m},
+                new Stock { StockSymbol = "AUTO", StockPrice = 44.23m}
+            };
+
+            // Act
+            var actual = _stockService.GetStockPricesByList(stockSymbols);
 
             // Assert
             Assert.Equivalent(expected, actual);
