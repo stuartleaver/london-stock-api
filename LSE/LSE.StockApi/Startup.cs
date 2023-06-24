@@ -20,6 +20,10 @@ namespace LSE.StockApi
 
             builder.Services.AddSingleton<ITransactionService, TransactionService>();
             builder.Services.AddSingleton<ITransactionRepository, TransactionRepository>();
+
+
+            builder.Services.AddSingleton<IStockService, StockService>();
+            builder.Services.AddSingleton<IStockRepository, StockRepository>();
         }
     }
 }

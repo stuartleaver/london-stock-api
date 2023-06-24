@@ -5,7 +5,7 @@ VisualStudioVersion = 17.2.32602.215
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LSE.StockApi", "LSE.StockApi\LSE.StockApi.csproj", "{9B0E0479-64A8-4B06-A7B5-5D41592E18EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lse.StockApi.Tests", "Lse.StockApi.Tests\Lse.StockApi.Tests.csproj", "{672A28B7-A41E-4B0F-95CB-5BA0A9567472}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LSE.StockApi.Tests", "Lse.StockApi.Tests\LSE.StockApi.Tests.csproj", "{672A28B7-A41E-4B0F-95CB-5BA0A9567472}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
