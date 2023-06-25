@@ -28,7 +28,7 @@ namespace LSE.StockApi
         }
 
         [FunctionName("TransactionFunction")]
-        public async Task<IActionResult> Run(
+        public async Task<IActionResult> RecieveTransaction(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = "transaction")] HttpRequest req,
             ILogger log)
         {
