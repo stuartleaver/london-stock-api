@@ -6,11 +6,15 @@
 
         private readonly Mock<IStockSymbolRepository> _stockSymbolRepository;
 
+        private readonly Mock<IBrokerRepository> _brokerRepository;
+
         public TransactionValidatorTests()
         {
             _stockSymbolRepository = new Mock<IStockSymbolRepository>();
 
-            _validator = new TransactionValidator(_stockSymbolRepository.Object);
+            _brokerRepository = new Mock<IBrokerRepository>();
+
+            _validator = new TransactionValidator(_stockSymbolRepository.Object, _brokerRepository.Object);
         }
 
         [Fact]
@@ -19,7 +23,9 @@
             // Arrange
             _stockSymbolRepository.Setup(x => x.IsStockSymbolValid(It.IsAny<string>())).Returns(true);
 
-            var transaction = new Transaction { StockSymbol = "VOD", StockPrice = 1.50m, NumberOfShares = 10, BrokerId = 123456 };
+            _brokerRepository.Setup(x => x.IsBrokerValid(1)).Returns(true);
+
+            var transaction = new Transaction { StockSymbol = "VOD", StockPrice = 1.50m, NumberOfShares = 10, BrokerId = 1 };
 
             // Act
             var result = _validator.Validate(transaction).IsValid;
@@ -100,6 +106,23 @@
         {
             // Arrange
             var transaction = new Transaction { StockSymbol = "VOD", StockPrice = 1.5m, NumberOfShares = 10, BrokerId = 0 };
+
+            // Act
+            var result = _validator.Validate(transaction).IsValid;
+
+            // Assert
+            Assert.False(result);
+        }
+
+        [Fact]
+        public void TransactionValidator_ShouldReturnFalse_WhenValidatingATransactionWithAnInvalidBrokerId()
+        {
+            // Arrange
+            _stockSymbolRepository.Setup(x => x.IsStockSymbolValid(It.IsAny<string>())).Returns(true);
+
+            _brokerRepository.Setup(x => x.IsBrokerValid(987)).Returns(false);
+
+            var transaction = new Transaction { StockSymbol = "VOD", StockPrice = 1.5m, NumberOfShares = 10, BrokerId = 987 };
 
             // Act
             var result = _validator.Validate(transaction).IsValid;
