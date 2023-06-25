@@ -1,5 +1,7 @@
 # London Stock API
 
+The Visual Studio solution is in the `LSE` folder.
+
 ## System Design
 ### API
 The API is designed around a single Function App that contains endpoints to retrieve transactions and requests for stock prices as follows:
