@@ -1,0 +1,13 @@
+global using FluentValidation;
+global using FluentValidation.Results;
+global using Microsoft.AspNetCore.Http;
+global using Microsoft.AspNetCore.Mvc;
+global using Microsoft.Extensions.Logging;
+global using Moq;
+global using Newtonsoft.Json;
+global using LSE.StockApi.Models;
+global using LSE.StockApi.Repositories;
+global using LSE.StockApi.Services;
+global using LSE.StockApi.Tests.Helpers;
+global using LSE.StockApi.Validators;
+global using Xunit;
