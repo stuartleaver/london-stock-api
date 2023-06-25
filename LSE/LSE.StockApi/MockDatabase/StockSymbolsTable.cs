@@ -1,9 +1,11 @@
 ﻿using LSE.StockApi.Models;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace LSE.StockApi.MockDatabase
 {
+    [ExcludeFromCodeCoverage]
     public static class StockSymbolsTable
     {
         private static List<StockSymbol> _stockSymbols = new List<StockSymbol>

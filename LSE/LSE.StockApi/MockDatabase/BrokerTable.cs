@@ -1,9 +1,11 @@
 ﻿using LSE.StockApi.Models;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace LSE.StockApi.MockDatabase
 {
+    [ExcludeFromCodeCoverage]
     public class BrokerTable
     {
         private static List<Broker> _brokers = new List<Broker>
