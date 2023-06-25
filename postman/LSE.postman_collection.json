@@ -1,0 +1,109 @@
+{
+	"info": {
+		"_postman_id": "10a37b89-6882-4a41-904b-e3860d508f30",
+		"name": "LSE",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21523424"
+	},
+	"item": [
+		{
+			"name": "Send Transaction",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"stockSymbol\": \"GSK\",\r\n    \"stockPrice\": 15,\r\n    \"numberOfShares\": 2,\r\n    \"brokerId\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:7115/api/transaction",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7115",
+					"path": [
+						"api",
+						"transaction"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Stock Price By Stock Symbol",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7115/api/stockprice/VOD",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7115",
+					"path": [
+						"api",
+						"stockprice",
+						"VOD"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Stock Prices",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7115/api/stockprice",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7115",
+					"path": [
+						"api",
+						"stockprice"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Stock Prices By List",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    \"VOD\",\r\n    \"RMV\"\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:7115/api/stockprice",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7115",
+					"path": [
+						"api",
+						"stockprice"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
