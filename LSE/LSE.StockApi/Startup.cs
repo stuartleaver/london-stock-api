@@ -26,6 +26,8 @@ namespace LSE.StockApi
 
             builder.Services.AddSingleton<IStockService, StockService>();
             builder.Services.AddSingleton<IStockRepository, StockRepository>();
+
+            builder.Services.AddSingleton<IStockSymbolRepository, StockSymbolRepository>();
         }
     }
 }

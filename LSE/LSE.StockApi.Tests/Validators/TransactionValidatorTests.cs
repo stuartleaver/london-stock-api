@@ -4,15 +4,21 @@
     {
         private readonly TransactionValidator _validator;
 
+        private readonly Mock<IStockSymbolRepository> _stockSymbolRepository;
+
         public TransactionValidatorTests()
         {
-            _validator = new TransactionValidator();
+            _stockSymbolRepository = new Mock<IStockSymbolRepository>();
+
+            _validator = new TransactionValidator(_stockSymbolRepository.Object);
         }
 
         [Fact]
         public void TransactionValidator_ShouldReturnTrue_WhenValidatingATransactionThatIsValid()
         {
             // Arrange
+            _stockSymbolRepository.Setup(x => x.IsStockSymbolValid(It.IsAny<string>())).Returns(true);
+
             var transaction = new Transaction { StockSymbol = "VOD", StockPrice = 1.50m, NumberOfShares = 10, BrokerId = 123456 };
 
             // Act
@@ -40,6 +46,21 @@
         {
             // Arrange
             var transaction = new Transaction { StockSymbol = "VODVOD", StockPrice = 1.50m, NumberOfShares = 10, BrokerId = 123456 };
+
+            // Act
+            var result = _validator.Validate(transaction).IsValid;
+
+            // Assert
+            Assert.False(result);
+        }
+
+        [Fact]
+        public void TransactionValidator_ShouldReturnFalse_WhenValidatingATransactionWithAnInvalidStockSymbol()
+        {
+            // Arrange
+            _stockSymbolRepository.Setup(x => x.IsStockSymbolValid(It.IsAny<string>())).Returns(false);
+
+            var transaction = new Transaction { StockSymbol = "123", StockPrice = 1.50m, NumberOfShares = 10, BrokerId = 123456 };
 
             // Act
             var result = _validator.Validate(transaction).IsValid;
