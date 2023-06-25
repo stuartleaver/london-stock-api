@@ -1,4 +1,4 @@
-﻿namespace LSE.StockApi.Tests
+﻿namespace LSE.StockApi.Tests.Validators
 {
     public class TransactionValidatorTests
     {

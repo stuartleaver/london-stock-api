@@ -1,4 +1,4 @@
-﻿namespace LSE.StockApi.Tests
+﻿namespace LSE.StockApi.Tests.Services
 {
     public class TransactionServiceTests
     {
